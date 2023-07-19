@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=undefined
+Name=Mukander
+Encoding=UTF-8
+Comment=Simple command starter.
+Path=/usr/local/bin/mukander
+Exec=/usr/bin/mukander
+Terminal=false
+Type=Application
+Categories=Utily;
