@@ -27,6 +27,9 @@ username=getpass.getuser()
 en="/home/"+username+"/.by-mukonqi/mukander/en.txt"
 tr="/home/"+username+"/.by-mukonqi/mukander/tr.txt"
 
+global gfs
+gfs=0
+
 def settings():
     if not os.path.isfile("/home/"+username+"/.by-mukonqi/mukander/dark.txt") and not os.path.isfile("/home/"+username+"/.by-mukonqi/mukander/light.txt"):
         bg="#000000"
@@ -56,6 +59,8 @@ def settings():
         if os.path.isfile(tr):
             messagebox.showinfo("Bilgilendirme","Başarılı! Koyu tema uygulandı.")
         swindow.destroy()
+        if gfs == 0:
+            window.destroy()
         os.system("python3 /usr/bin/mukander")
     def light():
         os.system("cd /home/"+username+"/.by-mukonqi/mukander/ ; rm dark.txt ; touch light.txt")
@@ -64,16 +69,22 @@ def settings():
         if os.path.isfile(tr):
             messagebox.showinfo("Bilgilendirme","Başarılı! Açık tema uygulandı.")
         swindow.destroy()
+        if gfs == 0:
+            window.destroy()
         os.system("python3 /usr/bin/mukander")
     def langen():
         os.system("cd /home/"+username+"/.by-mukonqi/mukander/ ; rm tr.txt ; touch en.txt")
         messagebox.showinfo("Information","Successful! English language applied.")
         swindow.destroy()
+        if gfs == 0:
+            window.destroy()
         os.system("python3 /usr/bin/mukander")
     def langtr():
         os.system("cd /home/"+username+"/.by-mukonqi/mukander/ ; rm en.txt ; touch tr.txt")
         messagebox.showinfo("Bilgilendirme","Başarılı! Türkçe dili uygulandı.") 
         swindow.destroy()
+        if gfs == 0:
+            window.destroy()
         os.system("python3 /usr/bin/mukander")
     swindow=Tk()
     swindow.config(background=bg)
@@ -113,6 +124,8 @@ def settings():
     exit()
     
 def first_start():
+    global gfs
+    gfs=1
     bg="#000000"
     fg="#FFFFFF"
     button_bg="#FFFFFF"
@@ -172,6 +185,7 @@ elif os.path.isfile("/home/"+username+"/.by-mukonqi/mukander/light.txt"):
     a_button_bg="#FFFFFF"
     a_button_fg="#000000"
 else:
+    gfs=1
     if os.path.isfile(en):
         messagebox.showwarning("Warning","Can't found theme config. When you click 'OK' settings will open.")
     elif os.path.isfile(tr):
@@ -222,10 +236,7 @@ def run():
         space5.pack()
         button2.pack()
           
-    if os.path.isfile(en):
-        text3=Label(window, background=bg, foreground=fg, font="arial 10 bold", text="Status: Running, please wait.")
-    elif os.path.isfile(tr):
-        text3=Label(window, background=bg, foreground=fg, font="arial 10 bold", text="Durum: Çalışıyor, lütfen bekleyin.")
+    text3=Label(window, background=bg, foreground=fg, font="arial 10 bold")
     text3.pack() 
     tic = time.time()
     if passentry.get() == "Password (for sudo)" or passentry.get() == "Şifre (sudo için)" or passentry.get() == "":
